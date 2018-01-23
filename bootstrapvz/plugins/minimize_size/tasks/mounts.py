@@ -22,7 +22,7 @@ class AddFolderMounts(Task):
 
             full_path = os.path.join(info.root, folder)
             os.chmod(temp_path, os.stat(full_path).st_mode)
-            info.volume.partition_map.root.add_mount(temp_path, full_path, ['--bind'])
+            info.volume.partition_map.root.add_mount(temp_path, folder, ['--bind'])
 
 
 class RemoveFolderMounts(Task):
@@ -35,9 +35,8 @@ class RemoveFolderMounts(Task):
         import shutil
         for folder in folders:
             temp_path = os.path.join(info._minimize_size['foldermounts'], folder.replace('/', '_'))
-            full_path = os.path.join(info.root, folder)
 
-            info.volume.partition_map.root.remove_mount(full_path)
+            info.volume.partition_map.root.remove_mount(folder)
             shutil.rmtree(temp_path)
 
         os.rmdir(info._minimize_size['foldermounts'])

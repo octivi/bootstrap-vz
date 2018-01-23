@@ -12,7 +12,7 @@ class MoveImage(Task):
         filename = image_name + '.' + info.volume.extension
 
         import os.path
-        destination = os.path.join(info.manifest.bootstrapper['workspace'], filename)
+        destination = os.path.join(info.workspace_root, filename)
         import shutil
         shutil.move(info.volume.image_path, destination)
         info.volume.image_path = destination

@@ -22,7 +22,9 @@ class BootstrapInformation(object):
 
         # Define the path to our workspace
         import os.path
-        self.workspace = os.path.join(manifest.bootstrapper['workspace'], self.run_id)
+        from bootstrapvz.common.tools import rel_path
+        self.workspace_root = rel_path(manifest.path, os.path.join(manifest.bootstrapper['workspace']))
+        self.workspace = os.path.join(self.workspace_root, self.run_id)
 
         # Load all the volume information
         from fs import load_volume

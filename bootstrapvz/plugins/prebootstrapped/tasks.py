@@ -54,7 +54,7 @@ class CopyImage(Task):
     @classmethod
     def run(cls, info):
         loopback_backup_name = 'volume-{id}.{ext}.backup'.format(id=info.run_id, ext=info.volume.extension)
-        destination = os.path.join(info.manifest.bootstrapper['workspace'], loopback_backup_name)
+        destination = os.path.join(info.workspace_root, loopback_backup_name)
 
         with unmounted(info.volume):
             copyfile(info.volume.image_path, destination)
@@ -84,7 +84,7 @@ class CopyFolder(Task):
     @classmethod
     def run(cls, info):
         folder_backup_name = '{id}.{ext}.backup'.format(id=info.run_id, ext=info.volume.extension)
-        destination = os.path.join(info.manifest.bootstrapper['workspace'], folder_backup_name)
+        destination = os.path.join(info.workspace_root, folder_backup_name)
         log_check_call(['cp', '-a', info.volume.path, destination])
         msg = 'A copy of the bootstrapped volume was created. Path: ' + destination
         log.info(msg)

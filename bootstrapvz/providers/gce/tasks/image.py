@@ -19,11 +19,11 @@ class CreateTarball(Task):
         image_name = image_name.replace(".", "-")
         info._gce['image_name'] = image_name
         tarball_name = image_name + '.tar.gz'
-        tarball_path = os.path.join(info.manifest.bootstrapper['workspace'], tarball_name)
+        tarball_path = os.path.join(info.workspace_root, tarball_name)
         info._gce['tarball_name'] = tarball_name
         info._gce['tarball_path'] = tarball_path
         # GCE requires that the file in the tar be named disk.raw, hence the transform
-        log_check_call(['tar', '--sparse', '-C', info.manifest.bootstrapper['workspace'],
+        log_check_call(['tar', '--sparse', '-C', info.workspace_root,
                         '-caf', tarball_path,
                         '--transform=s|.*|disk.raw|',
                         filename])
