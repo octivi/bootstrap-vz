@@ -39,7 +39,7 @@ def get_tarball_filename(info):
     hash_args = [arg for arg in arguments if arg != info.root]
     tarball_id = sha1(repr(frozenset(options + hash_args))).hexdigest()[0:8]
     tarball_filename = 'debootstrap-' + tarball_id + '.tar'
-    return os.path.join(info.workspace_root, tarball_filename)
+    return os.path.join(os.path.abspath(info.workspace_root), tarball_filename)
 
 
 class MakeTarball(Task):
